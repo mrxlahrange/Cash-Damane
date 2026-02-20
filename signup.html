@@ -94,11 +94,11 @@ function signup(){
   })
   .then(function(response){
     console.log("Email sent ✅", response.status, response.text);
-    alert("تم إنشاء الحساب وإرسال الإيميل!");
+    alert("تم إنشاء الحساب  !");
     window.location.href = "login.html"; // بعد التأكيد
   }, function(error){
     console.error("EmailJS Error ❌", error);
-    alert("حدث خطأ في إرسال الإيميل، الحساب تم إنشاؤه.");
+    alert("حدث خطأ  ، الحساب تم إنشاؤه.");
     window.location.href = "login.html";
   });
 }
