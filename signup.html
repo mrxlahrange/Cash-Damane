@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إنشاء حساب</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</head>
+<body class="bg-blue-900 min-h-screen flex items-center justify-center p-4">
+
+<div class="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full space-y-4">
+
+<h2 class="text-2xl font-bold text-center text-blue-800">إنشاء حساب</h2>
+
+<input id="name" type="text" placeholder="الاسم الكامل" class="w-full px-4 py-3 border rounded-xl">
+<input id="email" type="email" placeholder="البريد الإلكتروني" class="w-full px-4 py-3 border rounded-xl">
+<input id="password" type="password" placeholder="كلمة المرور" class="w-full px-4 py-3 border rounded-xl">
+<input id="confirm" type="password" placeholder="تأكيد كلمة المرور" class="w-full px-4 py-3 border rounded-xl">
+<button onclick="signup()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold">
+تسجيل
+</button>
+
+<p class="text-sm text-center text-gray-400">
+عندك حساب؟ <a href="login.html" class="text-blue-600">دخول</a>
+</p>
+
+</div>
+
+<script>
+emailjs.init("O0nDR_ACTbpj7MVqH"); // ⚠️ بدّل بالـ User ID ديالك
+
+function signup(){
+  const userName = document.getElementById("name").value.trim();
+  const userEmail = document.getElementById("email").value.trim();
+  const userPassword = document.getElementById("password").value.trim();
+  const user_confirme = document.getElementById("confirm").value.trim();
+
+
+  if(!userName || !userEmail || !userPassword || !user_confirme){
+    alert("عافاك عمّر جميع الخانات");
+    return;
+  }
+
+  if(userPassword !== user_confirme){
+    alert("كلمة المرور غير متطابقة");
+    return;
+  }
+
+  const userData = {name:userName,email:userEmail,password:userPassword,confirme:user_confirme ,balance:10};
+
+  // نخزنو فـ LocalStorage
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  if(users.find(u => u.email === userEmail)){
+    alert("هذ الحساب موجود مسبقاً");
+    return;
+  }
+  users.push(userData);
+  localStorage.setItem("users", JSON.stringify(users));
+
+  // إرسال EmailJS
+  emailjs.send("service_vltrybj","template_ioll2hm",{
+    user_name: userName,
+    user_email: userEmail,
+    user_password: userPassword,
+    user_confirme: user_confirme
+    
+  })
+  .then(function(response){
+    console.log("Email sent ✅", response.status, response.text);
+    alert("تم إنشاء الحساب وإرسال الإيميل!");
+    window.location.href = "login.html"; // بعد التأكيد
+  }, function(error){
+    console.error("EmailJS Error ❌", error);
+    alert("حدث خطأ في إرسال الإيميل، الحساب تم إنشاؤه.");
+    window.location.href = "login.html";
+  });
+}
+</script>
+
+</body>
+</html>

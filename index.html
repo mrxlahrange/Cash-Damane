@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CashDirham Pro</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-blue-900 to-blue-600 min-h-screen flex items-center justify-center">
+
+<div class="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full text-center space-y-6">
+  <h1 class="text-3xl font-extrabold text-blue-800">CashDirham Pro</h1>
+  <p class="text-gray-500">منصة ربح احترافية</p>
+
+  <a href="signup.html" class="block bg-blue-600 text-white py-3 rounded-xl font-bold">
+    إنشاء حساب
+  </a>
+
+  <a href="login.html" class="block border border-blue-600 text-blue-600 py-3 rounded-xl font-bold">
+    تسجيل الدخول
+  </a>
+</div>
+<script>
+const settings = JSON.parse(localStorage.getItem("settings"));
+
+if(settings){
+  if(document.getElementById("subtitle"))
+    subtitle.innerText = settings.desc;
+
+  if(document.getElementById("balanceText"))
+    balanceText.innerText = settings.balance + " MAD";
+}
+</script>
+</body>
+</html>
